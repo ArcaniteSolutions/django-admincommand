@@ -1,6 +1,11 @@
 import json
 from django import forms
 from dateutil.parser import parse as date_parse
+try:
+    from django.forms import JSONField
+except ImportError:
+    from django.contrib.postgres.fields import JSONField
+
 
 
 class GenericCommandForm(forms.Form):
@@ -11,7 +16,7 @@ class GenericCommandForm(forms.Form):
         str: forms.CharField,
         int: forms.IntegerField,
         float: forms.FloatField,
-        json.loads: forms.JSONField,
+        json.loads: JSONField,
         date_parse: forms.DateField,
     }
 
